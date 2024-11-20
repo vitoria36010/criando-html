@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aventura Interativa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="titulo">Aventura na Floresta</h1>
+
+    <div id="aventura" class="aventura">
+      <p id="descricao">Você está em uma floresta densa. Há dois caminhos à sua frente: um à esquerda e outro à direita. O que você faz?</p>
+      
+      <div class="opcoes">
+        <button id="esquerda" class="opcao" data-opcao="esquerda">Ir para a esquerda</button>
+        <button id="direita" class="opcao" data-opcao="direita">Ir para a direita</button>
+      </div>
+    </div>
+    
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+/* Resetando margens e preenchimento padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #2d3d44;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Container principal */
+.container {
+  text-align: center;
+  padding: 20px;
+  background-color: #3e4a56;
+  border-radius: 8px;
+  width: 70%;
+  max-width: 600px;
+}
+
+/* Título da aventura */
+#titulo {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffd700;
+}
+
+/* Descrição da aventura */
+#descricao {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Opções de escolha */
+.opcoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.opcao {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.opcao:hover {
+  background-color: #45a049;
+}
+
+/* Resultado */
+.resultado {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  color: #f1c40f;
+  display: none;
+}
+// Selecionando elementos da página
+const descricao = document.getElementById("descricao");
+const resultado = document.getElementById("resultado");
+const esquerdaBtn = document.getElementById("esquerda");
+const direitaBtn = document.getElementById("direita");
+
+// Função para alterar o conteúdo da história
+function atualizarAventura(opcao) {
+  if (opcao === "esquerda") {
+    descricao.textContent = "Você seguiu o caminho à esquerda e encontrou um rio turbulento. Você tenta atravessar?";
+    esquerdaBtn.textContent = "Tentar atravessar o rio";
+    direitaBtn.textContent = "Voltar para o ponto inicial";
+    direitaBtn.onclick = () => {
+      descricao.textContent = "Você voltou para o ponto inicial. Agora há dois caminhos: um à esquerda e outro à direita.";
+      esquerdaBtn.textContent = "Ir para a esquerda";
+      direitaBtn.textContent = "Ir para a direita";
+      direitaBtn.onclick = () => atualizarAventura("direita");
+    };
+    esquerdaBtn.onclick = () => {
+      resultado.style.display = "block";
+      resultado.textContent = "Você foi levado pela correnteza do rio. A aventura terminou!";
+    };
+  } else if (opcao === "direita") {
+    descricao.textContent = "Você seguiu o caminho à direita e encontrou uma caverna escura. Você entra?";
+    esquerdaBtn.textContent = "Entrar na caverna";
+    direitaBtn.textContent = "Voltar para o ponto inicial";
+    direitaBtn.onclick = () => {
+      descricao.textContent = "Você voltou para o ponto inicial. Agora há dois caminhos: um à esquerda e outro à direita.";
+      esquerdaBtn.textContent = "Ir para a esquerda";
+      direitaBtn.textContent = "Ir para a direita";
+      direitaBtn.onclick = () => atualizarAventura("direita");
+    };
+    esquerdaBtn.onclick = () => {
+      resultado.style.display = "block";
+      resultado.textContent = "Dentro da caverna, você encontrou um tesouro escondido! Parabéns!";
+    };
+  }
+}
+
+// Inicializando a aventura
+esquerdaBtn.onclick = () => atualizarAventura("esquerda");
+direitaBtn.onclick = () => atualizarAventura("direita");
+git init
+git add .
+git commit -m "Projeto de Aventura Interativa"
